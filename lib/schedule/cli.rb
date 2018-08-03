@@ -61,10 +61,10 @@ module Schedule
     def format_free_slots(slots)
       dates = Hash.new { |h, k| h[k] = [] }
       slots.each do |(s, e)|
-        dates[s.to_date] << "<b>#{s.strftime('%-l:%M %p')}</b> to <b>#{e.strftime('%-l:%M %p')}</b>"
+        dates[s.to_date] << "#{s.strftime('%-l:%M %p')} to #{e.strftime('%-l:%M %p')}"
       end
       dates.map do |date, times|
-        "<u>#{date.strftime('%A %B %-e')}</u><br/>#{times.join('<br/>')}"
+        "<u><b>#{date.strftime('%A %B %-e')}</b></u><br/>#{times.join('<br/>')}"
       end.join('<br/>')
     end
   end

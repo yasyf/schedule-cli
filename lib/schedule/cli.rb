@@ -65,7 +65,7 @@ module Schedule
       end
       dates.map do |date, times|
         "<u>#{date.strftime('%A %B %-e')}</u><br/>#{times.join('<br/>')}"
-      end.join('<br/><br/>')
+      end.join('<br/>')
     end
   end
 end

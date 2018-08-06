@@ -4,6 +4,7 @@ require 'active_support/core_ext/date'
 require 'active_support/core_ext/numeric/time'
 
 require 'launchy'
+require 'parallel'
 
 require 'google/apis/calendar_v3'
 require 'googleauth'
@@ -69,7 +70,6 @@ module Schedule
             end: Google::Apis::CalendarV3::EventDateTime.new(date: back_current.to_s),
           )
         else
-          events.concat get_events_for_date(back_current)
           buffer_back += 1
         end
       end
@@ -84,23 +84,24 @@ module Schedule
             end: Google::Apis::CalendarV3::EventDateTime.new(date: forward_current.to_s),
           )
         else
-          events.concat get_events_for_date(forward_current)
           buffer_forward += 1
         end
       end
 
+      events.concat get_events_for_dates(back_current, forward_current)
+
       [[back_current, forward_current], events.uniq]
     end
 
-    def get_events_for_date(date)
-      @options[:calendars].flat_map do |calendar|
+    def get_events_for_dates(from, to)
+      Parallel.map(@options[:calendars], in_threads: @options[:calendars].length) do |calendar|
         @service.list_events(
           calendar,
           single_events: true,
-          time_min: date.beginning_of_day.iso8601,
-          time_max: date.end_of_day.iso8601,
+          time_min: from.beginning_of_day.iso8601,
+          time_max: to.end_of_day.iso8601,
         ).items
-      end
+      end.flatten
     end
 
     def authorize!

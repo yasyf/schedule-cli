@@ -4,12 +4,14 @@ require 'active_support/core_ext/numeric/time'
 
 module Schedule
   class AvailabilityRange
-    def initialize(start, end_, day_start:, day_end:, granularity: 5.minutes)
+    def initialize(start, end_, day_start:, day_end:, min_delay:, granularity: 5.minutes)
       @start = start
       @granularity = granularity
       @slots = Array.new(n_slots(start, end_)) do |i|
         dt = slot_to_datetime(i)
-        (dt.hour > day_start || (dt.hour == day_start && !dt.minute.zero?)) && (dt.hour < day_end || (dt.hour == day_end && dt.minute.zero?))
+        ((dt - DateTime.now).days >= min_delay.hours) &&
+          (dt.hour > day_start || (dt.hour == day_start && !dt.minute.zero?)) &&
+          (dt.hour < day_end || (dt.hour == day_end && dt.minute.zero?))
       end
     end
 

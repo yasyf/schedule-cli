@@ -13,15 +13,17 @@ module Schedule
         end: 18,
       },
       defaults: {
+        align_to: 15,
         day_offset: 'next weekday',
         day_buffer: 1,
         duration: 30,
-        align_to: 15,
+        min_delay: 4,
       },
       events: {
         call: { duration: 30 },
         coffee: { duration: 60 },
       },
+      footer: nil,
     }.freeze
 
     def self.file(*args)

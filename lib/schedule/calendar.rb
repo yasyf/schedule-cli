@@ -34,6 +34,7 @@ module Schedule
       range = AvailabilityRange.new(
         start.beginning_of_day,
         end_.end_of_day,
+        min_delay: @options[:min_delay],
         day_start: @options[:day][:start],
         day_end: @options[:day][:end],
       )

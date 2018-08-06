@@ -21,7 +21,7 @@ module Schedule
     method_option :debug, type: :boolean, default: false
     def availability(type = nil, *offset_string)
       config = Config.values.slice(:calendars, :day).merge(Config.value(:defaults))
-      if /\A\d+\z/.match(type)
+      if /\A\d+\z/.match?(type)
         config[:duration] = type.to_i
       else
         config.merge!(Config.value(:events, type&.to_sym) || {})
@@ -31,9 +31,9 @@ module Schedule
       elsif config[:day_offset].is_a?(String)
         config[:day_offset] = parse_offset config[:day_offset]
       end
-      puts "#{config}" if options.debug?
+      puts config.to_s if options.debug?
       slots = Schedule::Calendar.new(config).free_slots
-      print_with_options format_free_slots(slots)
+      print_with_options "#{format_free_slots(slots)}<br/>#{Config.value(:footer)}"
     end
 
     desc 'config', 'open config file in default editor'
@@ -59,6 +59,7 @@ module Schedule
     end
 
     def format_free_slots(slots)
+      return "<b style='color: red;'>No free slots!</b>" unless slots.present?
       dates = Hash.new { |h, k| h[k] = [] }
       slots.each do |(s, e)|
         dates[s.to_date] << "#{s.strftime('%-l:%M %p')} to #{e.strftime('%-l:%M %p')}"

@@ -27,10 +27,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
 
   spec.add_dependency 'activesupport', '~> 5.2'
+  spec.add_dependency 'chronic'
   spec.add_dependency 'google-api-client', '~> 0.11'
   spec.add_dependency 'launchy'
   spec.add_dependency 'nokogiri'
-  spec.add_dependency 'thor'
-  spec.add_dependency 'chronic'
   spec.add_dependency 'parallel'
+  spec.add_dependency 'thor'
 end

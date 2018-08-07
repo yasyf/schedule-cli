@@ -16,7 +16,7 @@ module Schedule
       super
     end
 
-    desc 'availability type', 'print availability table'
+    desc 'availability type|duration offset', 'print availability table'
     method_option :html, type: :boolean, default: false
     method_option :debug, type: :boolean, default: false
     def availability(type = nil, *offset_string)

@@ -7,15 +7,15 @@ module Schedule
   class Config
     CONFIG_DIR = "#{Dir.home}/.schedule-cli/"
     DEFAULT_CONFIG = {
-      calendars: ['primary'],
-      day: {
-        start: 8,
-        end: 18,
-      },
       defaults: {
         align_to: 15,
-        day_offset: 'next weekday',
-        day_buffer: 1,
+        calendars: ['primary'],
+        day: {
+          start: 8,
+          end: 18,
+          offset: 'next weekday',
+          buffer: 1,
+        },
         duration: 30,
         min_delay: 4,
       },
@@ -44,7 +44,7 @@ module Schedule
     end
 
     def self.values
-      @values ||= YAML.load(File.read(config_file)) # rubocop:disable Security/YAMLLoad
+      @values ||= DEFAULT_CONFIG.merge(YAML.load(File.read(config_file))) # rubocop:disable Security/YAMLLoad
     end
   end
 end

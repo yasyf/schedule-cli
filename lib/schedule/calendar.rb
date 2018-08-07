@@ -28,8 +28,8 @@ module Schedule
     end
 
     def free_slots
-      center = Date.today + @options[:day_offset].days
-      (start, end_), events = get_events_in_range(center, @options[:day_buffer])
+      center = Date.today + @options[:day][:offset].days
+      (start, end_), events = get_events_in_range(center, @options[:day][:buffer])
 
       range = AvailabilityRange.new(
         start.beginning_of_day,

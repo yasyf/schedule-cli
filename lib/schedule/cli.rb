@@ -20,16 +20,16 @@ module Schedule
     method_option :html, type: :boolean, default: false
     method_option :debug, type: :boolean, default: false
     def availability(type = nil, *offset_string)
-      config = Config.values.slice(:calendars, :day).merge(Config.value(:defaults))
+      config = Config.value(:defaults)
       if /\A\d+\z/.match?(type)
         config[:duration] = type.to_i
       else
         config.merge!(Config.value(:events, type&.to_sym) || {})
       end
       if offset_string.present?
-        config[:day_offset] = parse_offset offset_string.join(' ')
-      elsif config[:day_offset].is_a?(String)
-        config[:day_offset] = parse_offset config[:day_offset]
+        config[:day][:offset] = parse_offset offset_string.join(' ')
+      elsif config[:day][:offset].is_a?(String)
+        config[:day][:offset] = parse_offset config[:day][:offset]
       end
       puts config.to_s if options.debug?
       slots = Schedule::Calendar.new(config).free_slots
@@ -39,6 +39,11 @@ module Schedule
     desc 'config', 'open config file in default editor'
     def config
       system("${EDITOR:-${VISUAL:-vi}} '#{Config.config_file}'")
+    end
+
+    desc 'reset', 'reset config and auth tokens'
+    def reset
+      system("rm -r #{Config::CONFIG_DIR}")
     end
 
     private

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_support/core_ext/hash/deep_merge'
+
 require 'thor'
 require 'nokogiri'
 require 'chronic'
@@ -24,7 +26,8 @@ module Schedule
       if /\A\d+\z/.match?(type)
         config[:duration] = type.to_i
       else
-        config.merge!(Config.value(:events, type&.to_sym) || {})
+        event_config = Config.value(:events, type&.to_sym)
+        config = config.deep_merge(event_config) if event_config.present?
       end
       if offset_string.present?
         config[:day][:offset] = parse_offset offset_string.join(' ')

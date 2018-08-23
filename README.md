@@ -5,10 +5,19 @@ This gem allows you to quickly insert your calendar availability to any plain (o
 ## Installation
 
 ```bash
-$ gem install schedule
+$ gem install schedule-cli
 ```
 
 ## Usage
+
+```bash
+$ schedule -h
+Schedule commands:
+  schedule availability type|duration offset  # print availability table
+  schedule config                             # open config file in default editor
+  schedule help [COMMAND]                     # Describe available commands or one specific command
+  schedule reset
+```
 
 Run `schedule availability` to get your default availability table, which shows slots for a 30 minute meeting in a 3-day span centered on the weekday following today. Weekends are not considered as open slots unless the center date (`offset`) is a weekend.
 
@@ -40,4 +49,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/karuna-health/schedule.
+Bug reports and pull requests are welcome on GitHub at https://github.com/yasyf/schedule-cli.

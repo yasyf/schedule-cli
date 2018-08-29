@@ -18,12 +18,12 @@ module Schedule
         },
         duration: 30,
         min_delay: 4,
+        footer: nil,
       },
       events: {
         call: { duration: 30 },
         coffee: { duration: 60 },
       },
-      footer: nil,
     }.freeze
 
     def self.file(*args)

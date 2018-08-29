@@ -36,7 +36,7 @@ module Schedule
       end
       puts config.to_s if options.debug?
       slots = Schedule::Calendar.new(config).free_slots
-      print_with_options "#{format_free_slots(slots)}<br/>#{Config.value(:footer)}"
+      print_with_options "#{format_free_slots(slots)}<br/>#{config[:footer]}"
     end
 
     desc 'config', 'open config file in default editor'

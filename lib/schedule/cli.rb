@@ -49,6 +49,11 @@ module Schedule
       system("rm -r #{Config::CONFIG_DIR}")
     end
 
+    desc 'version', 'print gem version'
+    def version
+      puts Schedule::VERSION
+    end
+
     private
 
     def parse_offset(string)

@@ -102,7 +102,7 @@ module Schedule
           time_min: from.beginning_of_day.iso8601,
           time_max: to.end_of_day.iso8601,
         ).items
-      end.flatten.select { |e| e.transparency == 'opaque' }
+      end.flatten.select { |e| e.transparency != 'transparent' }
     end
 
     def authorize!

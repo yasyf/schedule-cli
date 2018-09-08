@@ -114,7 +114,7 @@ module Schedule
         puts 'Redirecting to Google for authorization...'
         Launchy.open(url) { puts "Open this URL in your browser:\n#{url}\n\n" }
         print 'Code: '
-        code = gets
+        code = STDIN.gets
         authorizer.get_and_store_credentials_from_code(user_id: :default, code: code, base_url: OOB_URI)
       end
     end

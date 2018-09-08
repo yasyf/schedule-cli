@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    schedule-cli (0.1.6)
+    schedule-cli (0.1.7)
       activesupport (~> 5.2)
       chronic
       google-api-client (~> 0.11)

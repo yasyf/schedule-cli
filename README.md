@@ -1,6 +1,6 @@
 # Schedule
 
-This gem allows you to quickly insert your calendar availability to any plain (or rich) text field. It connects with a single Google account but can pull appointments from various calendars. At Karuna, we have this hooked up to an [Alfred](https://www.alfredapp.com/) workflow.
+This gem allows you to quickly insert your calendar availability to any plain (or rich) text field. It connects with a single Google account but can pull appointments from various calendars. At Karuna, we have this hooked up to an [Alfred](https://www.alfredapp.com/) workflow (which you can find [here](schedule.alfredworkflow)!).
 
 ## Installation
 
